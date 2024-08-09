@@ -177,7 +177,7 @@ public class AwsApplicationSignalsCustomizerProvider
         return OtlpHttpMetricExporter.builder()
             .setEndpoint(applicationSignalsEndpoint)
             .setDefaultAggregationSelector(this::getAggregation)
-            .setAggregationTemporalitySelector(AggregationTemporalitySelector.deltaPreferred())
+            .setAggregationTemporalitySelector(CloudWatchTemporalitySelector.alwaysDelta())
             .build();
       } else if (protocol.equals(OtlpConfigUtil.PROTOCOL_GRPC)) {
         applicationSignalsEndpoint =
