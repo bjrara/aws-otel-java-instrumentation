@@ -74,7 +74,15 @@ public class AwsApplicationSignalsCustomizerProvider
   public void customize(AutoConfigurationCustomizer autoConfiguration) {
     autoConfiguration.addSamplerCustomizer(this::customizeSampler);
     autoConfiguration.addTracerProviderCustomizer(this::customizeTracerProviderBuilder);
+    autoConfiguration.addMetricExporterCustomizer(this::customizeMetricExporter);
     autoConfiguration.addSpanExporterCustomizer(this::customizeSpanExporter);
+  }
+
+  private MetricExporter customizeMetricExporter(MetricExporter metricExporter, ConfigProperties configProperties) {
+    MetricExporter applicationSignalsMetricExporter =
+            ApplicationSignalsExporterProvider.INSTANCE.createExporter(configProperties);
+    ScopeBasedMetricExporter delegate = new ScopeBasedMetricExporter(metricExporter, applicationSignalsMetricExporter);
+    return delegate;
   }
 
   private boolean isApplicationSignalsEnabled(ConfigProperties configProps) {
