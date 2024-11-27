@@ -2058,10 +2058,18 @@ index 692cd005eb..53390c8d85 100644
  
    def "send #operation async request with builder #builder.class.getName() mocked response"() {
 diff --git a/instrumentation/jmx-metrics/javaagent/src/main/java/io/opentelemetry/instrumentation/javaagent/jmx/JmxMetricInsightInstaller.java b/instrumentation/jmx-metrics/javaagent/src/main/java/io/opentelemetry/instrumentation/javaagent/jmx/JmxMetricInsightInstaller.java
-index 22bf78ca68..69b3c09c90 100644
+index 74a6f75ffb..69b3c09c90 100644
 --- a/instrumentation/jmx-metrics/javaagent/src/main/java/io/opentelemetry/instrumentation/javaagent/jmx/JmxMetricInsightInstaller.java
 +++ b/instrumentation/jmx-metrics/javaagent/src/main/java/io/opentelemetry/instrumentation/javaagent/jmx/JmxMetricInsightInstaller.java
-@@ -32,22 +32,22 @@ public class JmxMetricInsightInstaller implements AgentListener {
+@@ -20,7 +20,6 @@ import io.opentelemetry.sdk.autoconfigure.spi.ConfigProperties;
+ import java.io.InputStream;
+ import java.nio.file.Files;
+ import java.nio.file.Paths;
+-import java.time.Duration;
+ import java.util.List;
+ 
+ /** An {@link AgentListener} that enables JMX metrics during agent startup. */
+@@ -33,22 +32,22 @@ public class JmxMetricInsightInstaller implements AgentListener {
  
      if (config.getBoolean("otel.jmx.enabled", true)) {
        JmxMetricInsight service =
